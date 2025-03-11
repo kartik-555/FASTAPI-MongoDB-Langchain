@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException, status, Depends
-import schemas, models
+from fastapi import APIRouter, HTTPException
+import schemas
 from database import db
 from passlib.context import CryptContext
 from jose import jwt
-import random, string, os
+import random, os
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,15 +17,11 @@ ALGORITHM = os.getenv("ALGORITHM")
 def create_username(first, last):
     return f"{first.lower()}{last.lower()}{random.randint(1000, 9999)}"
 
+
 def create_token(data: dict):
-    return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-
-async def store_token(token: str):
-    await db.tokens.insert_one({"token": token})
-
-async def is_token_used(token: str) -> bool:
-    token_entry = await db.tokens.find_one({"token": token})
-    return token_entry is not None
+    to_encode = data.copy()
+    to_encode.update({"exp": datetime.utcnow() + timedelta(minutes=30)})  # Token expiration time
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 @router.post("/signup", response_model=schemas.SignUpResponse)
 async def signup(user: schemas.SignUpRequest):
@@ -68,5 +65,4 @@ async def login(data: schemas.LoginRequest):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_token({"sub": user["username"]})
-    await store_token(token)
     return {"status": "ok", "token": token}

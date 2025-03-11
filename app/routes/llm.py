@@ -8,8 +8,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from schemas import Message, ResponseMessage, ErrorMessage
 from pydantic import BaseModel
-from auth import is_token_used
-import json
+from database import db
 
 load_dotenv()
 
@@ -24,6 +23,13 @@ llm = ChatGroq(
     temperature=0.3,
     api_key=GROQ_API_KEY
 )
+
+async def store_token(token: str):
+    await db.tokens.insert_one({"token": token})
+
+async def is_token_used(token: str) -> bool:
+    token_entry = await db.tokens.find_one({"token": token})
+    return token_entry is not None
 
 # Pydantic model for expected response structure
 class LLMResponse(BaseModel):
@@ -85,6 +91,8 @@ async def websocket_endpoint(websocket: WebSocket, topic: str):
         return
     
     if await is_token_used(token):
+        await websocket.accept()
+        await websocket.send_json({"error": "Token expired"})
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
         return
 
@@ -93,7 +101,8 @@ async def websocket_endpoint(websocket: WebSocket, topic: str):
     except HTTPException:
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
         return
-
+    
+    await store_token(token)
     await websocket.accept()
     try:
         while True:
