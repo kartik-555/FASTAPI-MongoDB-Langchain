@@ -29,3 +29,6 @@ class ResponseMessage(BaseModel):
 
 class ErrorMessage(BaseModel):
     error: str
+    
+class LLMResponse(BaseModel):
+    response: str

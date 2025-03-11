@@ -6,7 +6,7 @@ import os
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from app.schemas import Message, ResponseMessage, ErrorMessage
+from app.schemas import Message, ResponseMessage, ErrorMessage, LLMResponse
 from pydantic import BaseModel
 from app.database import db
 
@@ -31,9 +31,6 @@ async def is_token_used(token: str) -> bool:
     token_entry = await db.tokens.find_one({"token": token})
     return token_entry is not None
 
-# Pydantic model for expected response structure
-class LLMResponse(BaseModel):
-    response: str
 
 # Define the output parser
 parser = JsonOutputParser(pydantic_object=LLMResponse)
