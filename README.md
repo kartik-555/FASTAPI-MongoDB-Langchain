@@ -1,31 +1,31 @@
 
 # FastAPI WebSocket and Authentication Example
 
-This project demonstrates a FastAPI application with WebSocket support and JWT-based authentication. The application includes endpoints for user signup and login, as well as a WebSocket endpoint for real-time communication.
+This project demonstrates a FastAPI application with WebSocket support and JWT-based authentication. The application includes endpoints for user signup and login, as well as a WebSocket endpoint for real-time communication with LLM through Groq API.
 
 ---
 
-## 🚀 Features
+##  Features
 
-- ✅ User signup and login with JWT-based authentication  
-- 📡 WebSocket endpoint for real-time communication  
-- 🔐 Pydantic models for request validation  
-- 💾 MongoDB for data storage using Motor (async driver)  
-- 🐳 Docker support for containerized deployment  
+-  User signup and login with JWT-based authentication  
+-  WebSocket endpoint for real-time communication  
+-  Pydantic models for request validation  
+-  MongoDB for data storage using Motor (async driver)  
+-  Docker support for containerized deployment  
 
 ---
 
-## 📦 Setup
+##  Setup
 
-### ✅ Prerequisites
+###  Prerequisites
 
 - Python 3.12  
 - Docker  
-- MongoDB Atlas or Local MongoDB instance  
+- MongoDB Atlas  
 
 ---
 
-### 🛠️ Installation
+###  Installation
 
 1. **Clone the repository**  
    ```sh
@@ -47,16 +47,12 @@ This project demonstrates a FastAPI application with WebSocket support and JWT-b
 4. **Set up environment variables**  
    - Create a `.env` file in the root directory  
    - Copy content from `env_example.txt` and fill in your values  
-     ```env
-     MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
-     SECRET_KEY=your-secret-key
-     ```
 
 ---
 
-## 🚀 Running the Application
+##  Running the Application
 
-### ▶️ Start FastAPI Server (Dev)
+###  Start FastAPI Server (Dev)
 
 ```sh
 uvicorn app.main:app --reload
@@ -80,7 +76,7 @@ The server will be available at: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 📬 API Endpoints
+##  API Endpoints
 
 - `POST /signup` – Register a new user  
 - `POST /login` – Login and receive JWT token  
@@ -88,7 +84,7 @@ The server will be available at: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 🧠 Tech Stack
+##  Tech Stack
 
 - **FastAPI** – Web framework  
 - **Motor** – Async MongoDB driver  
