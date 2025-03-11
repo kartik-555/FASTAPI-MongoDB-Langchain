@@ -1,0 +1,8 @@
+fastapi
+motor
+pydantic
+python-dotenv
+passlib[bcrypt]
+python-jose[cryptography]
+uvicorn
+langchain-groq
