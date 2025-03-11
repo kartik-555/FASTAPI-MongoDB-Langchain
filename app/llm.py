@@ -6,9 +6,9 @@ import os
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from schemas import Message, ResponseMessage, ErrorMessage
+from app.schemas import Message, ResponseMessage, ErrorMessage
 from pydantic import BaseModel
-from database import db
+from app.database import db
 
 load_dotenv()
 

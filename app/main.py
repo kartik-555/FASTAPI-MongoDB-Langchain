@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import auth,llm
+from app import auth,llm
 
 app = FastAPI()
 

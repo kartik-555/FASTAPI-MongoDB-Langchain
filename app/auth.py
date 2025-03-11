@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-import schemas
-from database import db
+from app import schemas
+from app.database import db
 from passlib.context import CryptContext
 from jose import jwt
 import random, os
