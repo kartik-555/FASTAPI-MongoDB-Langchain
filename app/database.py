@@ -1,7 +1,9 @@
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
+from dotenv import load_dotenv
 
-# MongoDB Atlas URI (ensure it is set in your environment variables)
+load_dotenv()
+
 uri = os.getenv("MONGODB_URI")
 
 # Create the async Motor client
