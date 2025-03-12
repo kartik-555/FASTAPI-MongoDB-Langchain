@@ -1,0 +1,13 @@
+1. How would you structure the Dockerfile for this project?
+Ans- 
+    Firstly I will use slim version of python to reduce image size. setup the working 
+    directory.
+    Install all the dependencies
+    write command to run the application.
+
+2. What best practices should be followed for containerizing FastAPI applications?
+Ans-
+    Pinning dependencies version in requirements.txt file
+    use environment variable via .env
+    Structure app modularly
+
